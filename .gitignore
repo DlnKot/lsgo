@@ -1,0 +1,154 @@
+=========================
+
+Go build artifacts
+
+=========================
+
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.o
+*.a
+
+Go workspace / modules
+
+go.work
+go.work.sum
+
+Binaries
+
+bin/
+dist/
+build/
+
+Coverage
+
+*.cover
+coverage.out
+coverage.html
+
+Go test cache
+
+*.test
+
+Vendor (если не используешь vendoring)
+
+vendor/
+
+=========================
+
+IDE / Editors
+
+=========================
+
+VS Code
+
+.vscode/
+
+JetBrains
+
+.idea/
+
+Vim
+
+*.swp
+*.swo
+*.swn
+
+Helix
+
+.helix/
+
+Neovim
+
+.nvim/
+
+=========================
+
+OS files
+
+=========================
+
+macOS
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+Windows
+
+Thumbs.db
+Desktop.ini
+
+Linux
+
+*~
+
+=========================
+
+Logs
+
+=========================
+
+*.log
+logs/
+
+=========================
+
+Environment files
+
+=========================
+
+.env
+.env.*
+*.local
+
+=========================
+
+Temporary files
+
+=========================
+
+tmp/
+temp/
+*.tmp
+
+=========================
+
+Config (optional)
+
+=========================
+
+если у тебя локальные конфиги
+
+config.local.json
+config.dev.json
+
+=========================
+
+GoLand / IntelliJ
+
+=========================
+
+*.iml
+
+=========================
+
+TUI apps (как у тебя)
+
+=========================
+
+*.cache
+cache/
+
+=========================
+
+macOS Finder
+
+=========================
+
+.DS_Store
