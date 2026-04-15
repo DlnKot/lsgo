@@ -1,9 +1,4 @@
-=========================
-
-Go build artifacts
-
-=========================
-
+# Go build artifacts
 *.exe
 *.exe~
 *.dll
@@ -13,142 +8,60 @@ Go build artifacts
 *.out
 *.o
 *.a
+lsgo
 
-Go workspace / modules
-
-go.work
-go.work.sum
-
-Binaries
-
+# Build directories
 bin/
 dist/
 build/
 
-Coverage
+# Coverage
+.cover
+coverage.
+.test
 
-*.cover
-coverage.out
-coverage.html
+# Go workspace
+go.work
+go.work.sum
 
-Go test cache
-
-*.test
-
-Vendor (если не используешь vendoring)
-
+# Vendor (optional)
 vendor/
 
-=========================
+# Environment files
+.env
+.env.
+*.local
 
-IDE / Editors
+# Logs
+*.log
+logs/
 
-=========================
+# Temp files
+tmp/
+temp/
+*.tmp
+*~
 
-VS Code
-
-.vscode/
-
-JetBrains
-
-.idea/
-
-Vim
-
-*.swp
-*.swo
-*.swn
-
-Helix
-
-.helix/
-
-Neovim
-
-.nvim/
-
-=========================
-
-OS files
-
-=========================
-
-macOS
-
+# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
 
-Windows
-
+# Windows
 Thumbs.db
 Desktop.ini
 
-Linux
-
-*~
-
-=========================
-
-Logs
-
-=========================
-
-*.log
-logs/
-
-=========================
-
-Environment files
-
-=========================
-
-.env
-.env.*
-*.local
-
-=========================
-
-Temporary files
-
-=========================
-
-tmp/
-temp/
-*.tmp
-
-=========================
-
-Config (optional)
-
-=========================
-
-если у тебя локальные конфиги
-
-config.local.json
-config.dev.json
-
-=========================
-
-GoLand / IntelliJ
-
-=========================
-
+# IDEs
+.vscode/
+.idea/
 *.iml
 
-=========================
+# Editors
+*.swp
+*.swo
+.helix/
+.nvim/
 
-TUI apps (как у тебя)
-
-=========================
-
-*.cache
+# Cache
+.cache
 cache/
-
-=========================
-
-macOS Finder
-
-=========================
-
-.DS_Store
