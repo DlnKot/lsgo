@@ -1,19 +1,19 @@
-package internal
+package config
 
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 )
 
 type Config struct {
-	ConfigPath string `json:"-"`
+	ConfigPath     string `json:"-"`
 	StandartEditor string `json:"standart_editor"`
 }
 
-func NewConfig(customConfigPath string) Config {
-
+func New(customConfigPath string) Config {
 	dir := "lsgo"
 	configFileName := "config.json"
 
@@ -52,12 +52,12 @@ func NewConfig(customConfigPath string) Config {
 	}
 
 	return Config{
-		ConfigPath: configPath,
+		ConfigPath:     configPath,
 		StandartEditor: "hx",
 	}
 }
 
-func (c *Config)LoadConfig() {
+func (c *Config) LoadConfig() {
 	path := c.ConfigPath
 
 	file, err := os.Open(path)
@@ -65,16 +65,25 @@ func (c *Config)LoadConfig() {
 		fmt.Println("Error open config file", err)
 		return
 	}
+	defer file.Close()
 
-	data := []byte{}
-	file.Read(data)
+	data, err := io.ReadAll(file)
+	if err != nil {
+		fmt.Println("Error reading config file", err)
+		return
+	}
 
-	var config Config
-	err = json.Unmarshal(data, &config)
+	if len(data) == 0 {
+		c.StandartEditor = "hx"
+		return
+	}
+
+	var cfg Config
+	err = json.Unmarshal(data, &cfg)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
 	}
 
-	c.StandartEditor = config.StandartEditor
+	c.StandartEditor = cfg.StandartEditor
 }

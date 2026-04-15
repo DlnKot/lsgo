@@ -1,45 +1,36 @@
-package main
+package app
 
 import (
-	"flag"
 	"fmt"
-	"lsgo/internal"
+	"lsgo/internal/config"
+	"lsgo/internal/fs"
+	"lsgo/internal/ui"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
 
 	"github.com/eiannone/keyboard"
-	"golang.org/x/term"
 )
 
-func main() {
+type App struct {
+	printer     *ui.Printer
+	fileManager *fs.Manager
+	config      *config.Config
+}
 
-	var pathFlag string
-	fileManager := internal.NewFileManager()
-	printer := internal.Printer{}
-
-	flag.StringVar(&pathFlag, "path", fileManager.Pwd, "Use for set custom dir --path=[OPTION]")
-	flag.Parse()
-
-	config := internal.NewConfig("")
-	config.LoadConfig()
-
-	index := 0
-	offset := 0
-
-	_, height, err := term.GetSize(int(os.Stdout.Fd()))
-	if err != nil {
-		fmt.Println("Error getting terminal size:", err)
-		return
+func NewApp(fm *fs.Manager, cfg *config.Config) *App {
+	return &App{
+		printer:     &ui.Printer{},
+		fileManager: fm,
+		config:      cfg,
 	}
+}
 
-	if err := keyboard.Open(); err != nil {
-		panic(err)
-	}
-	defer keyboard.Close()
-
-	entries := fileManager.ReadDir(pathFlag)
+func (a *App) Run(entries []os.DirEntry, pathFlag string, index int, offset int, height int) error {
+	printer := a.printer
+	fileManager := a.fileManager
+	cfg := a.config
 
 	for {
 		ClearScreen()
@@ -68,7 +59,7 @@ func main() {
 				offset = 0
 				continue
 			} else {
-				cmd := exec.Command(config.StandartEditor, absPath)
+				cmd := exec.Command(cfg.StandartEditor, absPath)
 				cmd.Stdout = os.Stdout
 				cmd.Stdin = os.Stdin
 				cmd.Stderr = os.Stderr
@@ -81,7 +72,7 @@ func main() {
 			index = 0
 			offset = 0
 		case 'q':
-			return
+			return nil
 		}
 
 		if index < 0 {
@@ -102,7 +93,6 @@ func main() {
 			offset--
 		}
 	}
-
 }
 
 func limit(entries []os.DirEntry, height int, offset int) []os.DirEntry {

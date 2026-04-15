@@ -8,7 +8,7 @@
 *.out
 *.o
 *.a
-lsgo
+
 
 # Build directories
 bin/

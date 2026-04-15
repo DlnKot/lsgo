@@ -1,27 +1,26 @@
-package internal
+package fs
 
 import (
 	"fmt"
 	"os"
 )
 
-type FileManager struct {
+type Manager struct {
 	Pwd string
 }
 
-func NewFileManager() *FileManager {
-
+func NewManager() *Manager {
 	pwd, err := os.Getwd()
 	if err != nil {
 		pwd = "./"
 	}
 
-	return &FileManager{
+	return &Manager{
 		Pwd: pwd,
 	}
 }
 
-func (f FileManager) ReadDir(path string) []os.DirEntry  {
+func (f Manager) ReadDir(path string) []os.DirEntry {
 	entries, err := os.ReadDir(path)
 	if err != nil {
 		fmt.Println("Error for read dir", path, err)
